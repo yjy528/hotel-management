@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>酒店管理系统</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/dashboard.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/jquery-ui.css"/>
+    <script src="/js/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">管理员系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/tuichu">退出登录</a></li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
+                <li><a href="#"> <i class="glyphicon glyphicon-credit-card"></i>入住管理</a></li>
+                <li><a href="/datang">大堂入住</a></li>
+                <li><a href="/dingdan">订单入住</a></li>
+                <li><a href="/unsubscribe"><i class="glyphicon glyphicon-user"></i>退房管理</a></li>
+                <li><a href="/record"><i class="glyphicon glyphicon-asterisk"></i>记录查询</a></li>
+                <li><a href="/category"><i class="glyphicon glyphicon-th-list"></i>房间类别</a></li>
+                <li><a href="/room"><i class="glyphicon glyphicon-fire"></i>房间管理</a></li>
+                <li><a href="/roomState"><i class="glyphicon glyphicon-fire"></i>房间状态</a></li>
+                <li><a href="/modify"><i class="glyphicon glyphicon-cog"></i>修改密码</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <p>
+                管理员：<input type="text" id="sidText" class="form-control" value="<%= uname %>">
+            </p>
+            <p>
+                新密码：<input type="password" id="pwText" class="form-control">
+            </p>
+            <p>
+                <input id="gaimimabtn" type="button" value="提交" class="btn btn-success" />
+            </p>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery-1.12.3.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/underscore.js"></script>
+<script>
+    $("#gaimimabtn").click(function(){
+        $.post("/changepw",{
+            "uname" : $("#sidText").val(),
+            "psword" : $("#pwText").val()
+        },function(data){
+            alert(data);
+            window.location="/";
+        });
+    });
+</script>
+</body>
+</html>

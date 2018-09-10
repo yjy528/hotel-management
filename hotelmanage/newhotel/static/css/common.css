@@ -1,0 +1,68 @@
+/*重置代码*/
+html,body{font-family:"Helvetica Neue", Helvetica, STHeiTi, sans-serif,arial;-webkit-text-size-adjust:none;word-break:break-all;}
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, a, code, em, img, q, small, strong, dd, dl, dt, li, ol, ul, fieldset, form, label, table, tbody, tr, th, td, input,figure,section{ margin: 0; padding: 0; border: 0;-webkit-box-sizing: border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+a{text-decoration: none;color: #333}
+body {
+    color: #e6e5e3;
+    font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+    margin:0 auto;
+    position:relative;
+    font-size: 0.16rem;
+    background-color: #fff;
+}
+table{border-collapse:collapse;border-spacing:0;}
+img{vertical-align: middle;-ms-interpolation-mode: bicubic;}
+address,caption,cite,code,dfn,em,i,strong,th,var{font-style:normal;font-weight:normal;}
+ol,ul{list-style:none;}
+caption,th{text-align:left;}
+q:before,q:after{content:'';}
+abbr,acronym{border:0;}
+textarea, input{-webkit-appearance:none;
+    font-family:"Microsoft Yahei",helvetica,arial,sans-serif;-webkit-box-sizing: border-box;-moz-box-sizing:border-box;box-sizing:border-box;background: #fff;border-radius:4px;outline: 0;font-size:16px;color:#444;display:block;}
+input[type="checkbox"]{-webkit-appearance:checkbox;vertical-align: middle;display:inline-block;}
+input[type="radio"]{-webkit-appearance:radio;vertical-align: middle;display:inline-block;}
+/*重置代码结束*/
+
+span,i{display: inline-block}
+
+/*公用class名*/
+.left{float: left;}
+.right{float: right;}
+/*清浮动*/
+.clear::after{
+    content: '';
+    display: block;
+    overflow: hidden;
+    clear: both;
+}
+.c{cursor: pointer;}
+.rel{position: relative;}
+.abs{position: absolute;}
+.font18{font-size: 0.18rem;}
+.font15{font-size: 0.15rem;}
+.font13{font-size: 0.13rem;}
+.fw{font-weight: bold;}
+.colorY{color: #dcb176;}
+
+.sectionOne{
+    width: 12.78rem;
+    margin-bottom: 0.43rem;
+}
+.bg1{
+    background: rgba(66, 61, 55, 0.7);
+    border-radius: 0.03rem;
+}
+.bg2{
+    background: rgba(67, 61, 54, 0.4);
+    border-radius: 0.02rem;
+}
+.h{
+    height: 0.51rem;
+    line-height: 0.51rem;
+    padding-left: 0.26rem;
+}
+.hn{
+    line-height: 0.44rem;
+    text-align: left;
+}
+section h5{margin-bottom: 0;}

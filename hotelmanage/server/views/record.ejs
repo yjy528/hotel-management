@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>酒店管理系统</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/dashboard.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/jquery-ui.css"/>
+    <script src="/js/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">管理员系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/tuichu">退出登录</a></li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
+                <li><a href="#"> <i class="glyphicon glyphicon-credit-card"></i>入住管理</a></li>
+                <li><a href="/datang">大堂入住</a></li>
+                <li><a href="/dingdan">订单入住</a></li>
+                <li><a href="/unsubscribe"><i class="glyphicon glyphicon-user"></i>退房管理</a></li>
+                <li><a href="/record"><i class="glyphicon glyphicon-asterisk"></i>记录查询</a></li>
+                <li><a href="/category"><i class="glyphicon glyphicon-th-list"></i>房间类别</a></li>
+                <li><a href="/room"><i class="glyphicon glyphicon-fire"></i>房间管理</a></li>
+                <li><a href="/roomState"><i class="glyphicon glyphicon-fire"></i>房间状态</a></li>
+                <li><a href="/modify"><i class="glyphicon glyphicon-cog"></i>修改密码</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div>
+                查询条件 : <input type="text" class="searching" placeholder="请输入入住人的姓名查找"> <input type="button" class="btn btn-success" value="查询">
+            </div>
+            <br>
+            <!--<div>-->
+                <!--查询区间 : <input type="date">      至       <input type="date">-->
+            <!--</div>-->
+            <div>
+                <h2>入住记录信息</h2>
+                <table class="table">
+                    <tr>
+                        <th>入住时间</th>
+                        <th>退房时间</th>
+                        <th>入住人</th>
+                        <th>联系人</th>
+                        <th>证件号</th>
+                        <th>性别</th>
+                        <th>房间号</th>
+                        <th>房间类型</th>
+                        <th>入住状态</th>
+                        <th>消费金额</th>
+                    </tr>
+                    <tbody id="tbody"></tbody>
+                </table>
+
+                <div id="pagenavbox"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/jquery-1.12.3.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/underscore.js"></script>
+<script src="/js/PageNav.js"></script>
+<script>
+    $.get("/allOrder?page=1",function(data){
+        //分页条
+        new PageNav({
+            boxid : "pagenavbox",
+            page : 1,
+            pageAmount : data.pageAmount,
+            change : function(pagenumber){
+                gotopage(pagenumber);
+            }
+        });
+
+        gotopage(1);
+    });
+    function gotopage(pagenumber){
+        //清空
+        $("#tbody").empty();
+
+        //获得新的数据
+        $.get("/allOrder?page=" + pagenumber,function(data){
+            $.each(data.results,function(i, n){
+                $tr = $("<tr></tr>");
+                $("<td></td>").html(n.comedate).appendTo($tr);
+                $("<td></td>").html(n.godate).appendTo($tr);
+                $("<td></td>").html(n.allname).appendTo($tr);
+                $("<td></td>").html(n.name).appendTo($tr);
+                $("<td></td>").html(n.cardnum).appendTo($tr);
+                $("<td></td>").html(n.sex).appendTo($tr);
+                $("<td></td>").html(n.num).appendTo($tr);
+                $("<td></td>").html(n.category).appendTo($tr);
+                $("<td></td>").html(n.rstate).appendTo($tr);
+                $("<td></td>").html(n.allprice).appendTo($tr);
+                $tr.appendTo($("#tbody"));
+            });
+        });
+    }
+//查询
+    $(".searching").blur(function(){
+        $("#tbody").empty();
+        var a=$(this).val();
+        console.log(a);
+        if(a){
+            $.get("/searchRecord/"+a,function(data){
+                if(!data.result){
+                    alert("没有相关信息");
+                    return;
+                }
+                console.log(data.result);
+                var n=data.result;
+                // $.each(data.result,function(i, n){
+                $tr = $("<tr></tr>");
+                $("<td></td>").html(n.comedate).appendTo($tr);
+                $("<td></td>").html(n.godate).appendTo($tr);
+                $("<td></td>").html(n.allname).appendTo($tr);
+                $("<td></td>").html(n.name).appendTo($tr);
+                $("<td></td>").html(n.cardnum).appendTo($tr);
+                $("<td></td>").html(n.sex).appendTo($tr);
+                $("<td></td>").html(n.num).appendTo($tr);
+                $("<td></td>").html(n.category).appendTo($tr);
+                $("<td></td>").html(n.rstate).appendTo($tr);
+                $("<td></td>").html(n.allprice).appendTo($tr);
+                $tr.appendTo($("#tbody"));
+            })
+        }else{
+            window.location.reload();
+        }
+    })
+
+
+//查询2
+    function compareTime(time1,time2){
+        time1 = time1.split(" ");
+        time2 = time2.split(" ");
+        var dTime1 = time1[0].split("-");
+        var dTime2 = time2[0].split("-");
+        var date1 = new Date(dTime1[0]+"/"+dTime1[1]+"/"+dTime1[2]+" "+time1[1]);
+        var date2 = new Date(dTime2[0]+"/"+dTime2[1]+"/"+dTime2[2]+" "+time2[1]);
+        if(date1<date2) return true;
+        return false;
+    }
+
+</script>
+</body>
+</html>
